@@ -1,73 +1,57 @@
 #include "sort.h"
 /**
- *change_position - function that changes the position of the numbers
- *@array: array
- *@number1: first number
- *@number2: second number
- *@size: size of the array
- **/
-void change_position(int *array, int *number1, int *number2, size_t size)
+ * quick_sort - function that sorts an array
+ * of integers in ascending order using the
+ * quick sort algorithm
+ *
+ * @array: input arrray
+ * @size: size of the array
+ * Return: no return
+ */
+void quick_sort(int *array, size_t size)
 {
-	int exchange_position = *number1;
-
-	*number1 = *number2;
-	*number2 = exchange_position;
-	print_array(array, size);
+	_qsort(array, 0, size - 1, size);
 }
 /**
- *partition - partition function for the array
- *@array: array
- *@low: low
- *@high: high
- *@size: size of the array
- *Return: numero de cambios realizados
- **/
-int partition(int *array, int low, int high, size_t size)
+ * _qsort - auxiliar function for the
+ * quick_sort function
+ * @a: input arrray
+ * @low: index for the first element
+ * @high: index for the last element
+ * @size: size of the array
+ * Return: no return
+ */
+void _qsort(int *a, int low, int high, int size)
 {
-	int pivot = array[high];
-	int Index = low;
-	int i = 0;
-
-	for (i = low; i < high; i++)
-	{
-		if (array[i] <= pivot)
-		{
-			if (Index != i)
-				change_position(array, &array[i], &array[Index], size);
-			Index++;
-		}
-	}
-	if (Index != high)
-		change_position(array, &array[high], &array[Index], size);
-	return (Index);
-}
-/**
- *quickSort - function to quicksort
- *@array: array
- *@low: low
- *@high: high
- *@size: size of the array
- **/
-void quickSort(int *array, int low, int high, size_t size)
-{
-	int changes = 0;
+	int p, w, i;
+	int tmp;
 
 	if (low < high)
 	{
-		changes = partition(array, low, high, size);
-		quickSort(array, low, changes - 1, size);
-		quickSort(array, changes + 1, high, size);
+		p = high;
+		w = low;
+		for (i = low; i < high; i++)
+		{
+			if (a[i] < a[p])
+			{
+				if (i != w)
+				{
+					tmp = a[i];
+					a[i] = a[w];
+					a[w] = tmp;
+					print_array(a, size);
+				}
+				w++;
+			}
+		}
+		if (w != p && a[w] != a[p])
+		{
+			tmp = a[w];
+			a[w] = a[p];
+			a[p] = tmp;
+			print_array(a, size);
+		}
+		_qsort(a, low, w - 1, size);
+		_qsort(a, w + 1, high, size);
 	}
 }
-/**
- *quick_sort - sorts an array of integers in ascending order
- *@array: array
- *@size: size of the array
- **/
-void quick_sort(int *array, size_t size)
-{
-	if (!array || size < 2)
-		return;
-	quickSort(array, 0, size - 1, size);
-}
-
