@@ -25,4 +25,13 @@ void bubble_sort(int *array, size_t size);
 void insertion_sort_list(listint_t **list);
 void swap_nodes(listint_t *a, listint_t *b);
 
+
+/* Prototype for Selection sort */
+void selection_sort(int *array, size_t size);
+void swap_linked_list(listint_t **head, listint_t **first, listint_t *second);
+
+/* Prototypes for Quick sort */
+void quick_sort(int *array, size_t size);
+void lomuto_sort(int *array, size_t size, int left, int right);
+
 #endif
